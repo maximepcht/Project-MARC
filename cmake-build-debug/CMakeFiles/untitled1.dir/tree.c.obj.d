@@ -1,5 +1,5 @@
 CMakeFiles/untitled1.dir/tree.c.obj: E:\Clion\Project-MARC\tree.c \
- E:\Clion\Project-MARC\tree.h \
+ E:\Clion\Project-MARC\tree.h E:\Clion\Project-MARC\stack.h \
  E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
  E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \

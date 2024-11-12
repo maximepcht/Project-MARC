@@ -13,7 +13,13 @@ int main() {
         printf("Value of Son %d : %d\n",i, myTree->root->sons[i]->value);
     }
     for (int i = 0; i < 4; i++){
-        printf("Son 0->Son %d : %d\n",i, myTree->root->sons[0]->sons[i]->value);
+        printf("Son 1->Son %d : %d\n",i, myTree->root->sons[1]->sons[i]->value);
     }
+    //displayTree(myTree->root,3);
+    t_node* min_node = findMinLeaf(myTree->root);
+    printf("Minimum value of the tree is : %d\n", min_node->value);
+    printf("Minimum node pointer %p\n", min_node);
+    t_stack path = findPathToMin(min_node);
+    displayPathToMin(path);
     return 0;
 }

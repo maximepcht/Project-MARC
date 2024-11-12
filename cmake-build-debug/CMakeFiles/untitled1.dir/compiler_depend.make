@@ -30,6 +30,7 @@ CMakeFiles/untitled1.dir/main_test.c.obj: E:/Clion/Project-MARC/main_test.c \
   E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
   E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
   E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+  E:/Clion/Project-MARC/stack.h \
   E:/Clion/Project-MARC/tree.h
 
 CMakeFiles/untitled1.dir/map.c.obj: E:/Clion/Project-MARC/map.c \
@@ -127,6 +128,7 @@ CMakeFiles/untitled1.dir/tree.c.obj: E:/Clion/Project-MARC/tree.c \
   E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
   E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
   E:/Clion/CLion\ 2024.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+  E:/Clion/Project-MARC/stack.h \
   E:/Clion/Project-MARC/tree.h
 
 
@@ -178,6 +180,8 @@ E:/Clion/Project-MARC/map.c:
 
 E:/Clion/Project-MARC/main_test.c:
 
+E:/Clion/Project-MARC/stack.h:
+
 E:/Clion/Project-MARC/tree.h:
 
 E:/Clion/CLion\ 2024.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h:
@@ -201,7 +205,5 @@ E:/Clion/Project-MARC/queue.h:
 E:/Clion/Project-MARC/moves.c:
 
 E:/Clion/Project-MARC/queue.c:
-
-E:/Clion/Project-MARC/stack.h:
 
 E:/Clion/Project-MARC/tree.c:

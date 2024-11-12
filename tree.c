@@ -1,28 +1,69 @@
-//
-// Created by ADMIN on 10/22/2024.
-//
 #include "tree.h"
 #include "stdio.h"
 #include "stdlib.h"
 #define NB_CHOICES 5
+#define MAX_DEPTH 3
 
-t_node* addNode(int val, t_node* parent){
-    t_node *newNode = malloc(sizeof(t_node));
-    newNode->value = val;
-    newNode->depth = parent->depth+1;
-    newNode->nbSons = NB_CHOICES-newNode->depth;
-    newNode->sons = malloc(sizeof(t_node)*newNode->nbSons);
-    for (int i = 0; i < newNode->nbSons; i++){
-        newNode->sons[i] = NULL;
+// Node functions
+
+int* removeFromArray(int* arr, int size, int index) {
+    // Check if the index is valid
+    if (index < 0 || index >= size) {
+        printf("Index out of bounds.\n");
+        return NULL;
     }
-    return  newNode;
+
+    // Allocate memory for the new array
+    int newSize = size - 1;
+    int* newArr = (int*)malloc(newSize * sizeof(int));
+
+    if (newArr == NULL) {
+        printf("Memory allocation failed.\n");
+        return NULL;
+    }
+
+    // Copy elements before the index to the new array
+    for (int i = 0; i < index; i++) {
+        newArr[i] = arr[i];
+    }
+
+    // Copy elements after the index to the new array
+    for (int i = index + 1; i < size; i++) {
+        newArr[i - 1] = arr[i];
+    }
+
+    return newArr;
 }
 
-n_tree* createEmptyTree(){
-    n_tree* newN_Tree = malloc(sizeof(n_tree));
-    newN_Tree->root = NULL;
-    newN_Tree->height = 0;
-    return newN_Tree;
+t_node* createNode(int val, int nb_sons, int depth, int* avails) {
+    t_node *newNode = (t_node*) malloc(sizeof(t_node));
+    newNode->value = val;
+    newNode->nbSons = 0;
+    newNode->depth = depth;
+    newNode->sons = NULL;
+    newNode->avails = avails;
+
+    if (depth <= MAX_DEPTH) {
+        newNode->sons = (t_node**) malloc(nb_sons * sizeof(t_node*));
+        for (int i = 0; i < nb_sons; i++) {
+            int* new_avails = removeFromArray(avails, nb_sons, i);
+            newNode->sons[i] = createNode(avails[i], nb_sons - 1, depth + 1, new_avails);
+            newNode->nbSons++;
+        }
+    }
+
+    return newNode;
 }
 
-void fillTree(n_tree* tree, int* listOfValues);
+// Tree functions
+
+n_tree* createNTree() {
+    n_tree* tree = (n_tree*) malloc(sizeof(n_tree));
+    tree->root = NULL;
+    tree->height = 0;
+    return tree;
+}
+
+void fillNTree(n_tree* tree, int* avails, int numValues) {
+    tree->root = createNode(-1, numValues, 0, avails);
+}

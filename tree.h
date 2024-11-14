@@ -32,9 +32,9 @@ void fillNTree(n_tree*, int*, int);
 
 void displayTree(t_node*, int);
 
-t_node* findMinLeaf(t_node*);
+void findMinLeaf(t_node*, t_node***, int*, int*);
 
-t_stack findPathToMin(t_node*);
+t_stack* findPathToMin(t_node**, int);
 
 void displayPathToMin(t_stack);
 

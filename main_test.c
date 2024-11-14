@@ -15,11 +15,16 @@ int main() {
     for (int i = 0; i < 4; i++){
         printf("Son 1->Son %d : %d\n",i, myTree->root->sons[1]->sons[i]->value);
     }
-    //displayTree(myTree->root,3);
-    t_node* min_node = findMinLeaf(myTree->root);
-    printf("Minimum value of the tree is : %d\n", min_node->value);
-    printf("Minimum node pointer %p\n", min_node);
-    t_stack path = findPathToMin(min_node);
-    displayPathToMin(path);
+    t_node** MinArray = NULL;
+    int size = 0;
+    int min = 0;
+    findMinLeaf(myTree->root, &MinArray, &size, &min);
+    t_stack* pathArray = findPathToMin(MinArray, size);
+    for (int i = 0; i < size; i++){
+        printf("Path %d : ", i);
+        displayPathToMin(pathArray[i]);
+        printf("\n");
+    }
+//    displayTree(myTree->root, 5);
     return 0;
 }

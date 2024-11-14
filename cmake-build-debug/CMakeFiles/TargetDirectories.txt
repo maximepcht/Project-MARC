@@ -1,3 +1,3 @@
-E:/Clion/Project-MARC/cmake-build-debug/CMakeFiles/untitled1.dir
-E:/Clion/Project-MARC/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/Clion/Project-MARC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/ADMIN/Desktop/EFREI/C/Project-MARC/cmake-build-debug/CMakeFiles/untitled1.dir
+C:/Users/ADMIN/Desktop/EFREI/C/Project-MARC/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ADMIN/Desktop/EFREI/C/Project-MARC/cmake-build-debug/CMakeFiles/rebuild_cache.dir

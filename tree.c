@@ -8,13 +8,10 @@
 // Node functions
 
 int* removeFromArray(int* arr, int size, int index) {
-    // Check if the index is valid
     if (index < 0 || index >= size) {
         printf("Index out of bounds.\n");
         return NULL;
     }
-
-    // Allocate memory for the new array
     int newSize = size - 1;
     int* newArr = (int*)malloc(newSize * sizeof(int));
 
@@ -23,12 +20,10 @@ int* removeFromArray(int* arr, int size, int index) {
         return NULL;
     }
 
-    // Copy elements before the index to the new array
     for (int i = 0; i < index; i++) {
         newArr[i] = arr[i];
     }
 
-    // Copy elements after the index to the new array
     for (int i = index + 1; i < size; i++) {
         newArr[i - 1] = arr[i];
     }
@@ -89,31 +84,51 @@ void displayTree(t_node* node, int depth) {
     }
 }
 
-t_node* findMinLeaf(t_node* node){
-    if (node->nbSons == 0){
-        return node;
+
+void findMinLeaf(t_node* root, t_node*** minArray, int* size, int* minValue) {
+    if (root == NULL) {
+        return;
     }
 
-    t_node* minLeafNode = NULL;
-    for (int i = 0; i < node->nbSons; i++){
-        t_node* childMinLeaf = findMinLeaf(node->sons[i]);
-        if (childMinLeaf != NULL){
-            if (minLeafNode == NULL || childMinLeaf->value < minLeafNode->value){
-                minLeafNode = childMinLeaf;
-            }
+    // Check if the current node is a leaf node
+    if (root->nbSons == 0) {
+        // If this is the first leaf, initialize minValue
+        if (*size == 0) {
+            *minValue = root->value;
+            *minArray = (t_node**) malloc(sizeof(t_node*));
+            (*minArray)[0] = root;
+            *size = 1;
+        } else if (root->value < *minValue) {
+            // Found a new minimum leaf value, reset MinArray
+            *minValue = root->value;
+            *minArray = (t_node**) realloc(*minArray, sizeof(t_node*));
+            (*minArray)[0] = root;
+            *size = 1;
+        } else if (root->value == *minValue) {
+            // Leaf value matches current minimum, add to MinArray
+            *minArray = (t_node**) realloc(*minArray, (*size + 1) * sizeof(t_node*));
+            (*minArray)[*size] = root;
+            (*size)++;
         }
     }
-    return minLeafNode;
+
+    // Recursively check all children
+    for (int i = 0; i < root->nbSons; i++) {
+        findMinLeaf(root->sons[i], minArray, size, minValue);
+    }
 }
 
-t_stack findPathToMin(t_node* targetNode){
-    t_stack path = createStack(MAX_DEPTH+1);
-    t_node* curr = targetNode;
-    while (curr != NULL){
-        push(&path, curr->value);
-        curr = curr->parent;
+t_stack* findPathToMin(t_node** minArray, int sizeOfMinArray){
+    t_stack* pathArray = (t_stack*) malloc(sizeof(t_stack)*sizeOfMinArray);
+    for (int i = 0; i < sizeOfMinArray; i++){
+        pathArray[i] = createStack(MAX_DEPTH+1);
+        t_node* curr = minArray[i];
+        while (curr != NULL){
+            push(&pathArray[i], curr->value);
+            curr = curr->parent;
+        }
     }
-    return path;
+    return pathArray;
 }
 
 void displayPathToMin(t_stack path){

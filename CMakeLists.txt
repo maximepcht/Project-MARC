@@ -17,4 +17,6 @@ add_executable(untitled1 main.c
         tree.h
         tree.c
         main_test.c
+        robot.h
+        robot.c
 )

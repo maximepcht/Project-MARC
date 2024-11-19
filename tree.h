@@ -34,8 +34,8 @@ void displayTree(t_node*, int);
 
 void findMinLeaf(t_node*, t_node***, int*, int*);
 
-t_stack* findPathToMin(t_node**, int);
+t_stack* findPathToMin(t_node**, int, int*);
 
-void displayPathToMin(t_stack);
+void displayPathToMin(t_stack*, int);
 
 #endif //UNTITLED1_TREE_H

@@ -3,7 +3,7 @@
 #include "stdlib.h"
 #include "stack.h"
 #define NB_CHOICES 5
-#define MAX_DEPTH 3
+#define MAX_DEPTH 5
 
 // Node functions
 
@@ -118,26 +118,84 @@ void findMinLeaf(t_node* root, t_node*** minArray, int* size, int* minValue) {
     }
 }
 
-t_stack* findPathToMin(t_node** minArray, int sizeOfMinArray){
-    t_stack* pathArray = (t_stack*) malloc(sizeof(t_stack)*sizeOfMinArray);
-    for (int i = 0; i < sizeOfMinArray; i++){
-        pathArray[i] = createStack(MAX_DEPTH+1);
+t_stack* findPathToMin(t_node** minArray, int sizeOfMinArray, int* sizeOfPathArray) {
+    if (minArray == NULL || sizeOfMinArray <= 0) {
+        *sizeOfPathArray = 0;
+        return NULL;
+    }
+
+    t_stack* pathArray = (t_stack*) malloc(sizeof(t_stack) * sizeOfMinArray);
+    if (pathArray == NULL) {
+        perror("Failed to allocate memory for pathArray");
+        *sizeOfPathArray = 0;
+        return NULL;
+    }
+
+    *sizeOfPathArray = 0; // Initialize the count of valid paths
+    int validPathIndex = 0;
+
+    for (int i = 0; i < sizeOfMinArray; i++) {
         t_node* curr = minArray[i];
-        while (curr != NULL){
-            push(&pathArray[i], curr->value);
+        int contains10000 = 0;
+
+        // Check if the current path contains the value 10000
+        while (curr != NULL) {
+            if (curr->value == 10000) {
+                contains10000 = 1;
+                break;
+            }
             curr = curr->parent;
         }
+
+        // If the path contains 10000, skip it
+        if (contains10000) {
+            continue;
+        }
+
+        // Reinitialize the traversal to build the path
+        curr = minArray[i];
+        pathArray[validPathIndex] = createStack(MAX_DEPTH + 1);
+
+        while (curr != NULL) {
+            push(&pathArray[validPathIndex], curr->value);
+            curr = curr->parent;
+        }
+
+        validPathIndex++;
+        (*sizeOfPathArray)++;
     }
-    return pathArray;
+
+    // Shrink the array to valid paths only
+    t_stack* validPathArray = realloc(pathArray, sizeof(t_stack) * validPathIndex);
+    if (validPathArray == NULL) {
+        perror("Failed to reallocate memory for validPathArray");
+        free(pathArray); // Free original allocation
+        *sizeOfPathArray = 0;
+        return NULL;
+    }
+    return validPathArray;
 }
 
-void displayPathToMin(t_stack path){
-    if (path.size == 0){
-        printf("The path is empty\n");
+
+void displayPathToMin(t_stack* pathArray, int sizeOfPathArray) {
+    if (pathArray == NULL || sizeOfPathArray <= 0) {
+        printf("No paths to display.\n");
         return;
     }
-    printf("Path to the minimum leaf : ");
-    for (int i = path.nbElts-1; i >= 0 ; i--){
-        printf("%d | ", path.values[i]);
+
+    for (int i = 0; i < sizeOfPathArray; i++) {
+        if (pathArray[i].nbElts == 0) {  // Check if the stack is empty
+            printf("Path %d is empty.\n", i + 1);
+            continue;
+        }
+
+        printf("Path %d to the minimum leaf: ", i + 1);
+        for (int j = pathArray[i].nbElts - 1; j >= 0; j--) {  // Print stack elements
+            printf("%d | ", pathArray[i].values[j]);
+        }
+        printf("\n");
     }
 }
+
+
+

@@ -6,12 +6,13 @@
 #define UNTITLED1_TREE_H
 
 #include "stack.h"
+#include "moves.h"
 typedef struct s_node{
     int value;
     int depth;
     struct s_node **sons;
     int nbSons;
-    int *avails;
+    t_move* avails;
     struct s_node* parent;
 }t_node;
 

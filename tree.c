@@ -2,18 +2,29 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "stack.h"
+#include "loc.h"
+#include "moves.h"
+#include "map.h"
 #define NB_CHOICES 5
 #define MAX_DEPTH 5
 
+//Local functions
+int getCostFromMove(t_map, t_localisation, t_move);
+
+int getCostFromMove(t_map map, t_localisation curr_loc, t_move m){
+   t_localisation newLoc = move(curr_loc, m);
+    return map.costs[newLoc.pos.x][newLoc.pos.y];
+}
+
 // Node functions
 
-int* removeFromArray(int* arr, int size, int index) {
+t_move* removeFromArray(t_move* arr, int size, int index) {
     if (index < 0 || index >= size) {
         printf("Index out of bounds.\n");
         return NULL;
     }
     int newSize = size - 1;
-    int* newArr = (int*)malloc(newSize * sizeof(int));
+    t_move* newArr = (t_move*)malloc(newSize * sizeof(t_move));
 
     if (newArr == NULL) {
         printf("Memory allocation failed.\n");
@@ -31,7 +42,7 @@ int* removeFromArray(int* arr, int size, int index) {
     return newArr;
 }
 
-t_node* createNode(int val, int nb_sons, int depth, int* avails, t_node* parent) {
+t_node* createNode(int val, int nb_sons, int depth, t_move* avails, t_node* parent,t_map map, t_localisation loc) {
     t_node *newNode = (t_node*) malloc(sizeof(t_node));
     newNode->value = val;
     newNode->nbSons = 0;
@@ -44,10 +55,12 @@ t_node* createNode(int val, int nb_sons, int depth, int* avails, t_node* parent)
         newNode->sons = (t_node**) malloc(nb_sons * sizeof(t_node*));
         for (int i = 0; i < nb_sons; i++) {
             int* new_avails = removeFromArray(avails, nb_sons, i);
-            newNode->sons[i] = createNode(avails[i], nb_sons - 1, depth + 1, new_avails,newNode);
+            int valueOfSon = getCostFromMove(map,loc,avails[i]);
+            newNode->sons[i] = createNode(valueOfSon, nb_sons - 1, depth + 1, new_avails,newNode);
             newNode->nbSons++;
         }
     }
+
 
     return newNode;
 }

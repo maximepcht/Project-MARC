@@ -3,6 +3,9 @@
 //
 #include <stdlib.h>
 #include "moves.h"
+#include "loc.h"
+#include "tree.h"
+#include "moves.h"
 
 int* generateAvails(t_move* moves, int size){
     int* avails = (int*) malloc(size*sizeof(int));

@@ -5,8 +5,7 @@
 #include "loc.h"
 #include "moves.h"
 #include "map.h"
-#define NB_CHOICES 5
-#define MAX_DEPTH 5
+#define MAX_DEPTH 3
 
 //Local functions
 int getCostFromMove(t_map, t_localisation, t_move);
@@ -42,7 +41,7 @@ t_move* removeFromArray(t_move* arr, int size, int index) {
     return newArr;
 }
 
-t_node* createNode(int val, int nb_sons, int depth, t_move* avails, t_node* parent,t_map map, t_localisation loc) {
+t_node* createNode(int val, int nb_sons, int depth, t_move* avails, t_node* parent, t_map map, t_localisation loc) {
     t_node *newNode = (t_node*) malloc(sizeof(t_node));
     newNode->value = val;
     newNode->nbSons = 0;
@@ -54,9 +53,10 @@ t_node* createNode(int val, int nb_sons, int depth, t_move* avails, t_node* pare
     if (depth < MAX_DEPTH) {
         newNode->sons = (t_node**) malloc(nb_sons * sizeof(t_node*));
         for (int i = 0; i < nb_sons; i++) {
-            int* new_avails = removeFromArray(avails, nb_sons, i);
+            t_localisation newLoc = move(loc, avails[i]);
+            t_move* new_avails = removeFromArray(avails, nb_sons, i);
             int valueOfSon = getCostFromMove(map,loc,avails[i]);
-            newNode->sons[i] = createNode(valueOfSon, nb_sons - 1, depth + 1, new_avails,newNode);
+            newNode->sons[i] = createNode(valueOfSon, nb_sons - 1, depth + 1, new_avails,newNode, map, newLoc);
             newNode->nbSons++;
         }
     }
@@ -74,8 +74,9 @@ n_tree* createNTree() {
     return tree;
 }
 
-void fillNTree(n_tree* tree, int* avails, int numValues) {
-    tree->root = createNode(-1, numValues, 0, avails,NULL);
+void fillNTree(n_tree* tree, t_move* avails, int numMoves, t_localisation curr_loc, t_map map) {
+    t_position curr_pos = curr_loc.pos;
+    tree->root = createNode(map.costs[curr_pos.x][curr_pos.y], numMoves, 0, avails,NULL, map, curr_loc);
 }
 
 void displayTree(t_node* node, int depth) {
@@ -89,7 +90,7 @@ void displayTree(t_node* node, int depth) {
     }
 
     // Print the current node's value
-    printf("%d\t %p\n", node->value,node);
+    printf("%d\n", node->value);
 
     // Recursively print each child
     for (int i = 0; i < node->nbSons; i++) {
@@ -153,7 +154,7 @@ t_stack* findPathToMin(t_node** minArray, int sizeOfMinArray, int* sizeOfPathArr
 
         // Check if the current path contains the value 10000
         while (curr != NULL) {
-            if (curr->value == 10000) {
+            if (curr->value >= 10000) {
                 contains10000 = 1;
                 break;
             }

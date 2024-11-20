@@ -176,30 +176,6 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/main.c.s
 .PHONY : main.c.s
 
-main_test.obj: main_test.c.obj
-.PHONY : main_test.obj
-
-# target to build an object file
-main_test.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/main_test.c.obj
-.PHONY : main_test.c.obj
-
-main_test.i: main_test.c.i
-.PHONY : main_test.i
-
-# target to preprocess a source file
-main_test.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/main_test.c.i
-.PHONY : main_test.c.i
-
-main_test.s: main_test.c.s
-.PHONY : main_test.s
-
-# target to generate assembly for a file
-main_test.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/main_test.c.s
-.PHONY : main_test.c.s
-
 map.obj: map.c.obj
 .PHONY : map.obj
 
@@ -272,6 +248,30 @@ queue.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/queue.c.s
 .PHONY : queue.c.s
 
+robot.obj: robot.c.obj
+.PHONY : robot.obj
+
+# target to build an object file
+robot.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/robot.c.obj
+.PHONY : robot.c.obj
+
+robot.i: robot.c.i
+.PHONY : robot.i
+
+# target to preprocess a source file
+robot.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/robot.c.i
+.PHONY : robot.c.i
+
+robot.s: robot.c.s
+.PHONY : robot.s
+
+# target to generate assembly for a file
+robot.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled1.dir\build.make CMakeFiles/untitled1.dir/robot.c.s
+.PHONY : robot.c.s
+
 stack.obj: stack.c.obj
 .PHONY : stack.obj
 
@@ -335,9 +335,6 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... main_test.obj
-	@echo ... main_test.i
-	@echo ... main_test.s
 	@echo ... map.obj
 	@echo ... map.i
 	@echo ... map.s
@@ -347,6 +344,9 @@ help:
 	@echo ... queue.obj
 	@echo ... queue.i
 	@echo ... queue.s
+	@echo ... robot.obj
+	@echo ... robot.i
+	@echo ... robot.s
 	@echo ... stack.obj
 	@echo ... stack.i
 	@echo ... stack.s

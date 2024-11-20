@@ -16,7 +16,6 @@ add_executable(untitled1 main.c
         stack.h
         tree.h
         tree.c
-        main_test.c
         robot.h
         robot.c
 )

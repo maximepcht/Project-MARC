@@ -85,9 +85,6 @@
 		<Unit filename="E:/Clion/Project-MARC/main.c">
 			<Option target="untitled1"/>
 		</Unit>
-		<Unit filename="E:/Clion/Project-MARC/main_test.c">
-			<Option target="untitled1"/>
-		</Unit>
 		<Unit filename="E:/Clion/Project-MARC/map.c">
 			<Option target="untitled1"/>
 		</Unit>
@@ -104,6 +101,12 @@
 			<Option target="untitled1"/>
 		</Unit>
 		<Unit filename="E:/Clion/Project-MARC/queue.h">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="E:/Clion/Project-MARC/robot.c">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="E:/Clion/Project-MARC/robot.h">
 			<Option target="untitled1"/>
 		</Unit>
 		<Unit filename="E:/Clion/Project-MARC/stack.c">

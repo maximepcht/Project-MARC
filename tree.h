@@ -7,6 +7,10 @@
 
 #include "stack.h"
 #include "moves.h"
+#include "map.h"
+#include "loc.h"
+#include "moves.h"
+
 typedef struct s_node{
     int value;
     int depth;
@@ -16,9 +20,9 @@ typedef struct s_node{
     struct s_node* parent;
 }t_node;
 
-int *removeFromArray(int*, int, int);
+t_move *removeFromArray(t_move*, int, int);
 
-t_node* createNode(int, int, int, int*, t_node*);
+t_node* createNode(int, int, int, t_move*, t_node*, t_map, t_localisation);
 
 t_node* createRootNode(int*);
 
@@ -29,7 +33,7 @@ typedef struct s_tree{
 
 n_tree* createNTree();
 
-void fillNTree(n_tree*, int*, int);
+void fillNTree(n_tree*, t_move*, int, t_localisation, t_map);
 
 void displayTree(t_node*, int);
 

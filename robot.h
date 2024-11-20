@@ -4,6 +4,12 @@
 
 #ifndef UNTITLED1_ROBOT_H
 #define UNTITLED1_ROBOT_H
+#include <stdlib.h>
 #include "moves.h"
-int* generateAvails(t_move*, int);
+#include "loc.h"
+#include "tree.h"
+#include "moves.h"
+
+void init_loc(t_localisation);
+
 #endif //UNTITLED1_ROBOT_H

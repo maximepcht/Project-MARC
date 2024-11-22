@@ -5,8 +5,8 @@
 #include "loc.h"
 #include "tree.h"
 #include "moves.h"
-#define NB_CHOICES 5
-#define NB_MOVES 3
+#define NB_CHOICES 9
+#define NB_MOVES 5
 int main() {
     t_map map = createMapFromFile("..\\maps\\example1.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
@@ -27,17 +27,20 @@ int main() {
         }
         printf("\n");
     }
-    t_localisation startLoc = loc_init(6,5,NORTH);
+    t_localisation startLoc = loc_init(5,6,NORTH);
     t_move* moves = getRandomMoves(NB_CHOICES);
     n_tree* choiceTree = createNTree();
-    fillNTree(choiceTree,moves,NB_MOVES,startLoc,map);
-    displayTree(choiceTree->root, NB_MOVES);
-//    t_node** MinArray = NULL;
-//    int size = 0;
-//    int min = 0;
-//    findMinLeaf(choiceTree->root,&MinArray,&size,&min);
-//    int sizePathArray;
-//    t_stack* arrayOfPaths = findPathToMin(MinArray, size, &sizePathArray);
-//    displayPathToMin(arrayOfPaths, sizePathArray);
+    fillNTree(choiceTree,moves,NB_CHOICES,startLoc,map);
+    for (int i = 0; i < NB_CHOICES; i++) {
+        printf("%s\t", getMoveAsString(moves[i]));
+    }
+    printf("\n");
+    t_node** MinArray = NULL;
+    int sizeOfMinArray = 0;
+    int min = 0;
+    findMinLeaf(choiceTree->root, &MinArray, &sizeOfMinArray, &min);
+    int sizePathArray;
+    t_stack* arrayOfPaths = findPathToMin(MinArray, sizeOfMinArray, &sizePathArray);
+    displayPathToMin(arrayOfPaths, sizePathArray);
     return 0;
 }

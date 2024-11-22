@@ -5,14 +5,14 @@
 #include "loc.h"
 #include "moves.h"
 #include "map.h"
-#define MAX_DEPTH 3
+#define MAX_DEPTH 5
 
 //Local functions
 int getCostFromMove(t_map, t_localisation, t_move);
 
 int getCostFromMove(t_map map, t_localisation curr_loc, t_move m){
    t_localisation newLoc = move(curr_loc, m);
-    return map.costs[newLoc.pos.x][newLoc.pos.y];
+    return map.costs[newLoc.pos.y][newLoc.pos.x];
 }
 
 // Node functions
@@ -53,9 +53,15 @@ t_node* createNode(int val, int nb_sons, int depth, t_move* avails, t_node* pare
     if (depth < MAX_DEPTH) {
         newNode->sons = (t_node**) malloc(nb_sons * sizeof(t_node*));
         for (int i = 0; i < nb_sons; i++) {
+            int valueOfSon;
             t_localisation newLoc = move(loc, avails[i]);
             t_move* new_avails = removeFromArray(avails, nb_sons, i);
-            int valueOfSon = getCostFromMove(map,loc,avails[i]);
+            if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
+                valueOfSon = getCostFromMove(map,loc,avails[i]);
+            }
+            else {
+                valueOfSon = 10000;
+            }
             newNode->sons[i] = createNode(valueOfSon, nb_sons - 1, depth + 1, new_avails,newNode, map, newLoc);
             newNode->nbSons++;
         }
@@ -74,9 +80,9 @@ n_tree* createNTree() {
     return tree;
 }
 
-void fillNTree(n_tree* tree, t_move* avails, int numMoves, t_localisation curr_loc, t_map map) {
+void fillNTree(n_tree* tree, t_move* avails, int numChoices, t_localisation curr_loc, t_map map) {
     t_position curr_pos = curr_loc.pos;
-    tree->root = createNode(map.costs[curr_pos.x][curr_pos.y], numMoves, 0, avails,NULL, map, curr_loc);
+    tree->root = createNode(map.costs[curr_pos.y][curr_pos.x], numChoices, 0, avails,NULL, map, curr_loc);
 }
 
 void displayTree(t_node* node, int depth) {

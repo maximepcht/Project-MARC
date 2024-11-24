@@ -9,7 +9,16 @@
 #include "loc.h"
 #include "tree.h"
 #include "moves.h"
+#include "map.h"
 
-void init_loc(t_localisation);
+/**
+ * @brief Starts the process to find the base station
+ * @param curr_loc : The current location of the rover
+ * @param map : The map
+ */
+void findBaseStation(t_localisation*, t_map);
+
+
+
 
 #endif //UNTITLED1_ROBOT_H

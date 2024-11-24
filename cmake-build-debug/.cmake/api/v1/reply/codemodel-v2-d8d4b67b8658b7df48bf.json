@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/ADMIN/Desktop/EFREI/C/Project-MARC/cmake-build-debug",
-		"source" : "C:/Users/ADMIN/Desktop/EFREI/C/Project-MARC"
+		"build" : "E:/Clion/Project-MARC/cmake-build-debug",
+		"source" : "E:/Clion/Project-MARC"
 	},
 	"version" : 
 	{

@@ -18,7 +18,7 @@ t_stack createStack(int size)
     t_stack stack;
     stack.size = size;
     stack.nbElts = 0;
-    stack.values = (int *)malloc(size * sizeof(int));
+    stack.values = (t_move *)malloc(size * sizeof(t_move));
     return stack;
 }
 
@@ -28,11 +28,11 @@ t_stack createStack(int size)
  * @param value : the value to push
  * @return none
  */
-void push(t_stack *p_stack, int value)
+void push(t_stack *p_stack, t_move move)
 {
     // the stack must not be full
     assert(p_stack->nbElts < p_stack->size);
-    p_stack->values[p_stack->nbElts] = value;
+    p_stack->values[p_stack->nbElts] = move;
     p_stack->nbElts++;
     return;
 }
@@ -42,7 +42,7 @@ void push(t_stack *p_stack, int value)
  * @param stack : the stack
  * @return the value popped
  */
-int pop(t_stack *p_stack)
+t_move pop(t_stack *p_stack)
 {
     // the stack must not be empty
     assert(p_stack->nbElts > 0);
@@ -55,7 +55,7 @@ int pop(t_stack *p_stack)
  * @param stack : the stack
  * @return the top value
  */
-int top(t_stack stack)
+t_move top(t_stack stack)
 {
     // the stack must not be empty
     assert(stack.nbElts > 0);

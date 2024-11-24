@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "map.h"
-#include "moves.h"
 #include "loc.h"
-#include "tree.h"
-#include "moves.h"
-#define NB_CHOICES 9
-#define NB_MOVES 5
+#include "robot.h"
+#include "time.h"
+
+
 int main() {
-    t_map map = createMapFromFile("..\\maps\\example1.map");
+    clock_t  start, end;
+    double timeTaken;
+    start = clock();
+    t_map map = createMapFromFile("..\\maps\\example2.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
     for (int i = 0; i < map.y_max; i++)
     {
@@ -27,20 +29,10 @@ int main() {
         }
         printf("\n");
     }
-    t_localisation startLoc = loc_init(5,6,NORTH);
-    t_move* moves = getRandomMoves(NB_CHOICES);
-    n_tree* choiceTree = createNTree();
-    fillNTree(choiceTree,moves,NB_CHOICES,startLoc,map);
-    for (int i = 0; i < NB_CHOICES; i++) {
-        printf("%s\t", getMoveAsString(moves[i]));
-    }
-    printf("\n");
-    t_node** MinArray = NULL;
-    int sizeOfMinArray = 0;
-    int min = 0;
-    findMinLeaf(choiceTree->root, &MinArray, &sizeOfMinArray, &min);
-    int sizePathArray;
-    t_stack* arrayOfPaths = findPathToMin(MinArray, sizeOfMinArray, &sizePathArray);
-    displayPathToMin(arrayOfPaths, sizePathArray);
+    t_localisation startLoc = loc_init(6,6,NORTH);
+    findBaseStation(&startLoc,map);
+    end = clock();
+    timeTaken = ((double ) end -start) / CLOCKS_PER_SEC;
+    printf("Time taken to reach base station : %f seconds\n",timeTaken);
     return 0;
 }

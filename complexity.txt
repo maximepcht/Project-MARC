@@ -1,0 +1,5 @@
+Complexity of :
+• The tree construction phase -> O(n) in the best case and O(n!) in the worst case (when the maximum depth approaches the number of sons) 
+• The search for a leaf with the minimum value among all the leaves in the tree -> O(n) with n the total number of nodes
+• Calculating the path from the root to this leaf -> O(n) 
+• A complete example of MARC guidance from its home position to the base station -> O(n) in the general case and O(n!) in the worst case

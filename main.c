@@ -29,7 +29,7 @@ int main() {
         }
         printf("\n");
     }
-    t_localisation startLoc = loc_init(6,6,NORTH);
+    t_localisation startLoc = loc_init(10,10,NORTH);
     findBaseStation(&startLoc,map);
     end = clock();
     timeTaken = ((double ) end -start) / CLOCKS_PER_SEC;
